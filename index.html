@@ -12,6 +12,15 @@
       </div>
     </template>
 
+    <template id="members-template">
+      {{#each members}}
+      <div class="member">
+        <h3>{{login}}</h3>
+        <img src="{{avatar_url}}" alt="{{login}}" width="150" />
+      </div>
+      {{/each}}
+    </template>
+
     <div id="results"></div>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
