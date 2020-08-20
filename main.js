@@ -1,13 +1,9 @@
-const memberTemplate = Handlebars.compile($("#member-template").html());
-const membersTemplate = Handlebars.compile($("#members-template").html(), {
-  strict: true,
-});
+const memberTemplate = Handlebars.registerPartial(
+  "member",
+  $("#member-template").html()
+);
 
-// const html = memberTemplate({
-//   login: "abuiles",
-//   // login: "<script>alert('hi')</script>",
-//   avatar_url: "https://avatars0.githubusercontent.com/u/21772?v=4",
-// });
+const membersTemplate = Handlebars.compile($("#members-template").html());
 
 const html = membersTemplate({
   members: [
