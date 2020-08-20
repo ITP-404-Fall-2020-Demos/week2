@@ -12,14 +12,12 @@
       </div>
     </script>
 
-    <template id="members-template">
+    <script type="template/handlebars" id="members-template">
       {{#each members}}
-      <div class="member">
         <h3>{{login}}</h3>
         <img src="{{avatar_url}}" alt="{{login}}" width="150" />
-      </div>
       {{/each}}
-    </template>
+    </script>
 
     <div id="results"></div>
 
