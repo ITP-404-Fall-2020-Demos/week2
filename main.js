@@ -1,4 +1,8 @@
-const memberTemplate = Handlebars.compile($("#member-template").html());
+const memberTemplate = Handlebars.registerPartial(
+  "member",
+  $("#member-template").html()
+);
+
 const membersTemplate = Handlebars.compile($("#members-template").html(), {
   strict: true,
 });
