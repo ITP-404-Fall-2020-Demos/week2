@@ -10,7 +10,11 @@
       <div class="member">
         <h3>{{member.login}}</h3>
         <img src="{{member.avatar_url}}" alt="{{member.login}}" width="150" />
-        <button class="js-favorite-member" data-id={{member.id}}>Add to favorites</button>
+        {{#if favorited}}
+          <button class="js-remove-favorited-member" data-id={{member.id}}>Remove favorites</button>
+        {{else}}
+          <button class="js-favorite-member" data-id={{member.id}}>Add to favorites</button>
+        {{/if}}
         <ul>
           {{#each member.repos}}
             <li>{{full_name}}</li>
@@ -29,7 +33,7 @@
       <h3>Favorites</h3>
       {{#if members.length}}
         {{#each members}}
-          {{> member member=.}}
+          {{> member member=. favorited=../isFavorite}}
         {{/each}}
       {{else}}
         <p>You don't have any favorite members</p>
