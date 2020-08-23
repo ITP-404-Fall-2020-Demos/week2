@@ -10,6 +10,11 @@
       <div class="member">
         <h3>{{member.login}}</h3>
         <img src="{{member.avatar_url}}" alt="{{member.login}}" width="150" />
+        <ul>
+          {{#each member.repos}}
+            <li>{{full_name}}</li>
+          {{/each}}
+        </ul>
       </div>
     </script>
 
