@@ -12,6 +12,13 @@
       </div>
     </script>
 
+    <script type="template/handlebars" id="members-template">
+      {{#each members}}
+        <h3>{{login}}</h3>
+        <img src="{{avatar_url}}" alt="{{login}}" width="150" />
+      {{/each}}
+    </script>
+
     <div id="results"></div>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
