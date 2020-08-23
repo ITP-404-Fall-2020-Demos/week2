@@ -1,3 +1,13 @@
+const dataStore = {
+  members: {},
+  favoriteMembers: [],
+  addMembers(members) {
+    members.forEach((member) => {
+      this.members[member.id] = member;
+    });
+  }
+};
+
 const memberTemplate = Handlebars.registerPartial(
   "member",
   $("#member-template").html()
@@ -31,6 +41,7 @@ $.ajax({
     });
   })
   .then((members) => {
+    dataStore.addMembers(members);
     const html = membersTemplate({ members });
     $("#results").html(html);
   });
@@ -42,3 +53,28 @@ function fetchRepos(url) {
     headers
   });
 }
+
+const favoriteMembersTemplate = Handlebars.compile($("#favorite-members-template").html());
+
+function renderFavoriteMembers() {
+  const favoriteMembersHtml = favoriteMembersTemplate({
+    members: dataStore.favoriteMembers
+  });
+
+  $('#favorite-members').html(favoriteMembersHtml);
+}
+
+renderFavoriteMembers();
+
+// $('.js-favorite-member').on('click', function () {
+//   console.log($(this).data('id'))
+// });
+
+// Event Delegation
+$('#results').on('click', '.js-favorite-member', function () {
+  const id = $(this).data('id');
+  const member = dataStore.members[id];
+
+  dataStore.favoriteMembers.push(member);
+  renderFavoriteMembers();
+});
