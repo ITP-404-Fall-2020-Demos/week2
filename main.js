@@ -58,7 +58,8 @@ const favoriteMembersTemplate = Handlebars.compile($("#favorite-members-template
 
 function renderFavoriteMembers() {
   const favoriteMembersHtml = favoriteMembersTemplate({
-    members: dataStore.favoriteMembers
+    members: dataStore.favoriteMembers,
+    isFavorite: true
   });
 
   $('#favorite-members').html(favoriteMembersHtml);
@@ -76,5 +77,15 @@ $('#results').on('click', '.js-favorite-member', function () {
   const member = dataStore.members[id];
 
   dataStore.favoriteMembers.push(member);
+  renderFavoriteMembers();
+});
+
+$('#favorite-members').on('click', '.js-remove-favorited-member', function () {
+  const id = $(this).data('id');
+
+  dataStore.favoriteMembers = dataStore.favoriteMembers.filter((member) => {
+    return member.id !== id;
+  });
+
   renderFavoriteMembers();
 });
