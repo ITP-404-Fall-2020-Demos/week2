@@ -18,12 +18,7 @@ $.ajax({
   url: "https://api.github.com/orgs/emberjs/members"
 })
   .then((members) => {
-    const repoPromises = [];
-
-    members.forEach((member) => {
-      const promise = fetchRepos(member.repos_url);
-      repoPromises.push(promise);
-    });
+    const repoPromises = members.map((member) => fetchRepos(member.repos_url));
 
     return new Promise((resolve) => {
       Promise.all(repoPromises).then((repos) => {
