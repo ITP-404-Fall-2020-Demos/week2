@@ -10,7 +10,36 @@ $("#results").html("Loading...");
 $.ajax({
   type: "GET",
   url: "https://api.github.com/orgs/emberjs/members",
-}).then((members) => {
-  const html = membersTemplate({ members });
-  $("#results").html(html);
-});
+})
+  .then((members) => {
+    const repoPromises = [];
+
+    // to prevent being rate limited
+    members = members.slice(0, 2);
+
+    members.forEach((member) => {
+      const promise = fetchRepos(member.repos_url);
+      repoPromises.push(promise);
+    });
+
+    return new Promise((resolve) => {
+      Promise.all(repoPromises).then((repos) => {
+        members.forEach((member, i) => {
+          member.repos = repos[i];
+        });
+
+        resolve(members);
+      });
+    });
+  })
+  .then((members) => {
+    const html = membersTemplate({ members });
+    $("#results").html(html);
+  });
+
+function fetchRepos(url) {
+  return $.ajax({
+    type: "GET",
+    url,
+  });
+}
