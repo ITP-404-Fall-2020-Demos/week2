@@ -10,6 +10,7 @@
       <div class="member">
         <h3>{{member.login}}</h3>
         <img src="{{member.avatar_url}}" alt="{{member.login}}" width="150" />
+        <button class="js-favorite-member" data-id={{member.id}}>Add to favorites</button>
         <ul>
           {{#each member.repos}}
             <li>{{full_name}}</li>
@@ -24,7 +25,21 @@
       {{/each}}
     </script>
 
-    <div id="results"></div>
+    <script type="template/handlebars" id="favorite-members-template">
+      <h3>Favorites</h3>
+      {{#if members.length}}
+        {{#each members}}
+          {{> member member=.}}
+        {{/each}}
+      {{else}}
+        <p>You don't have any favorite members</p>
+      {{/if}}
+    </script>
+
+    <main>
+      <div id="results" class="results"></div>
+      <div id="favorite-members" class="favorite-members"></div>
+    </main>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="handlebars-v4.7.6.js"></script>
