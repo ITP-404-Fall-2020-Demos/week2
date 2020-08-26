@@ -1,0 +1,16 @@
+.member {
+  border: 1px solid #aaa;
+  margin: 15px;
+}
+
+main {
+  display: flex;
+}
+
+.results {
+  width: 70%;
+}
+
+.favorite-members {
+  margin-left: 20px;
+}
